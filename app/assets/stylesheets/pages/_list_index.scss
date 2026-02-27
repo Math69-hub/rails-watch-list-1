@@ -1,0 +1,249 @@
+// ─── Lists Index Banner ─────────────────────────────────────────
+
+.lists-index-banner {
+  position: relative;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  padding: 80px 0 60px;
+  text-align: center;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+    animation: drift 20s linear infinite;
+  }
+
+  .banner-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .banner-label {
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 8px;
+  }
+
+  .banner-title {
+    font-family: $headers-font;
+    font-size: 3rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  .banner-subtitle {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+  }
+}
+
+// ─── Container ──────────────────────────────────────────────────
+
+.lists-index-container {
+  padding-top: 48px;
+  padding-bottom: 80px;
+}
+
+// ─── Lists Grid ─────────────────────────────────────────────────
+
+.lists-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+}
+
+// ─── List Card ──────────────────────────────────────────────────
+
+.list-card-link {
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.list-card {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  gap: 20px;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+
+    .list-card-arrow i {
+      transform: translateX(4px);
+    }
+
+    .mini-poster-0 {
+      transform: rotate(-4deg) scale(1.05);
+    }
+  }
+}
+
+// ─── Card Visual (mini posters) ─────────────────────────────────
+
+.list-card-visual {
+  flex-shrink: 0;
+  width: 100px;
+  height: 80px;
+}
+
+.list-card-posters {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .mini-poster {
+    position: absolute;
+    width: 55px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+  }
+
+  .mini-poster-0 {
+    z-index: 3;
+    top: 0;
+    left: 0;
+  }
+
+  .mini-poster-1 {
+    z-index: 2;
+    top: -2px;
+    left: 20px;
+    opacity: 0.7;
+    transform: scale(0.92);
+  }
+
+  .mini-poster-2 {
+    z-index: 1;
+    top: -4px;
+    left: 40px;
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+
+  .empty-posters {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $light-gray;
+    border-radius: 12px;
+    color: #ccc;
+    font-size: 1.5rem;
+  }
+}
+
+// ─── Card Body ──────────────────────────────────────────────────
+
+.list-card-body {
+  flex: 1;
+  min-width: 0;
+
+  .list-card-title {
+    font-family: $headers-font;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0 0 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .list-card-count {
+    font-size: 0.8rem;
+    color: #999;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    i {
+      color: #302b63;
+      font-size: 0.7rem;
+    }
+  }
+}
+
+// ─── Card Arrow ─────────────────────────────────────────────────
+
+.list-card-arrow {
+  flex-shrink: 0;
+  color: #ccc;
+  font-size: 0.9rem;
+
+  i {
+    transition: transform 0.3s ease;
+  }
+}
+
+// ─── Empty State ────────────────────────────────────────────────
+
+.lists-index-container .empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: #aaa;
+
+  i {
+    margin-bottom: 16px;
+    color: #ddd;
+  }
+
+  h3 {
+    font-family: $headers-font;
+    color: #555;
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: #999;
+    font-size: 0.95rem;
+  }
+}
+
+// ─── Responsive ─────────────────────────────────────────────────
+
+@media (max-width: 576px) {
+  .lists-index-banner {
+    padding: 60px 20px 40px;
+
+    .banner-title {
+      font-size: 2rem;
+    }
+  }
+
+  .lists-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .list-card {
+    padding: 16px;
+  }
+}

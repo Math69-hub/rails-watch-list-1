@@ -1,0 +1,69 @@
+<div class="list-show-banner">
+  <div class="banner-overlay"></div>
+  <div class="banner-content">
+    <p class="banner-label">Ma liste</p>
+    <h1 class="banner-title"><%= @list.name %></h1>
+    <p class="banner-count"><%= @list.bookmarks.count %> film<%= "s" if @list.bookmarks.count > 1 %></p>
+    <%= link_to lists_path, class: "btn-back" do %>
+      <i class="fas fa-arrow-left"></i> Toutes les listes
+    <% end %>
+  </div>
+</div>
+
+<div class="container list-show-container">
+  <% if @list.bookmarks.any? %>
+    <div class="movies-grid">
+      <% @list.bookmarks.each do |bookmark| %>
+        <div class="movie-card">
+          <div class="movie-card-poster">
+            <% if bookmark.movie.poster_url.present? %>
+              <%= image_tag bookmark.movie.poster_url, alt: bookmark.movie.title, class: "poster-img" %>
+            <% else %>
+              <div class="poster-placeholder">
+                <i class="fas fa-film"></i>
+              </div>
+            <% end %>
+            <% if bookmark.movie.rating.present? %>
+              <span class="movie-rating">
+                <i class="fas fa-star"></i> <%= bookmark.movie.rating %>/10
+              </span>
+            <% end %>
+            <div class="movie-card-overlay">
+              <%= link_to list_bookmark_path(@list, bookmark), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Retirer ce film de la liste ?" }, class: "btn-remove" do %>
+                <i class="fas fa-trash-alt"></i>
+              <% end %>
+            </div>
+          </div>
+          <div class="movie-card-info">
+            <h3 class="movie-title"><%= bookmark.movie.title %></h3>
+            <% if bookmark.comment.present? %>
+              <p class="movie-comment"><i class="fas fa-quote-left"></i> <%= bookmark.comment %></p>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <i class="fas fa-popcorn fa-3x"></i>
+      <h3>Aucun film pour l'instant</h3>
+      <p>Ajoutez votre premier film à cette liste !</p>
+    </div>
+  <% end %>
+
+  <div class="add-movie-section" id="add-movie">
+    <div class="add-movie-card">
+      <div class="add-movie-header">
+        <i class="fas fa-plus-circle"></i>
+        <h2>Ajouter un film</h2>
+      </div>
+      <%= simple_form_for([@list, @bookmark], html: { class: "add-movie-form" }) do |f| %>
+        <div class="form-row">
+          <%= f.association :movie, prompt: "Choisissez un film…", input_html: { class: "form-select-custom" } %>
+          <%= f.input :comment, placeholder: "Votre avis sur ce film…", input_html: { rows: 2, class: "form-textarea-custom" } %>
+        </div>
+        <%= f.submit "Ajouter à la liste", class: "btn-add-movie" %>
+      <% end %>
+    </div>
+  </div>
+</div>
